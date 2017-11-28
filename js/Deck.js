@@ -1,15 +1,15 @@
 Deck = function(game, x, y) {
   Phaser.Sprite.call(this, game, x, y, "deck");
 
-  var SCALE = .4
-
   this.inputEnabled = true;
   this.events.onInputUp.add(Deck.click, this);
 
-  this.scale.setTo(SCALE);
   this.remaining = 10;
   
-  this.textBox = game.make.text(this.width/SCALE/2, this.height/SCALE, this.remaining + " remaining");
+  var style = {
+    fontSize: "18px"
+  };
+  this.textBox = game.make.text(this.width/2, this.height, this.remaining + " remaining", style);
   this.textBox.anchor.setTo(.5, 0);
 
   this.addChild(this.textBox);
