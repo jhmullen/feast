@@ -5,45 +5,25 @@ Game.init = function(){
 };
 
 Game.preload = function() {
-  game.load.image('board', 'assets/wood.jpg');
-  game.load.image('deck', 'assets/cardback.png');
-  game.load.image('foodback', 'assets/cardback2.png');
-  game.load.image('guestback', 'assets/cardback3.png');
-  game.load.image('food', 'assets/food.jpg');
-  game.load.image('guest', 'assets/guest.jpg');
-  game.load.image('sprite','assets/sprites/sprite.png');
+  game.load.script("Card.js", "js/Card.js");
+  game.load.script("Deck.js", "js/Deck.js");
+
+  game.load.image("board", "assets/wood.jpg");
+  game.load.image("deck", "assets/cardback.png");
+  game.load.image("card", "assets/card.png");
 };
 
 Game.create = function(){
   // Globals
   Game.playerMap = {};
-
-  var SCALE = .4
   
   // Board Setup
-  var board = game.add.image(0, 0, 'board');
-  board.inputEnabled = true; 
-  board.events.onInputUp.add(Game.getCoordinates, this);
+  var board = game.add.image(0, 0, "board");
+  //board.inputEnabled = true; 
+  //board.events.onInputUp.add(Game.getCoordinates, this);
 
-  var thisDeck = game.add.image(50, 570, 'deck');
-  thisDeck.scale.setTo(SCALE, SCALE);
-
-  var thatDeck = game.add.image(900, 50, 'deck');
-  thatDeck.scale.setTo(SCALE, SCALE);
-
-  var foodDeck = game.add.image(200, 375, 'foodback');
-  foodDeck.scale.setTo(SCALE, SCALE);
-
-  var guestDeck = game.add.image(200, 225, 'guestback');
-  guestDeck.scale.setTo(SCALE, SCALE);
-
-  var SPACE = 100;
-  for (var i = 0; i < 5; i++) {
-    var food = game.add.image(200 + SPACE + SPACE*i, 375, 'food');
-    food.scale.setTo(SCALE, SCALE);
-    var guest = game.add.image(200 + SPACE + SPACE*i, 225, 'guest');
-    guest.scale.setTo(SCALE, SCALE);
-  }
+  var deck = new Deck(game, 50, 570);
+  game.add.existing(deck);
 
   // Network Diagnostics
   var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -52,12 +32,17 @@ Game.create = function(){
   Client.askNewPlayer();
 };
 
-Game.getCoordinates = function(layer,pointer){
+Game.spawnCard = function() {
+  var card = new Card(game, Math.random() * 1024, Math.random() * 768);
+  game.add.existing(card);
+}
+
+Game.getCoordinates = function(layer,pointer) {
   Client.sendClick(pointer.worldX,pointer.worldY);
 };
 
 Game.addNewPlayer = function(id,x,y){
- //Game.playerMap[id] = game.add.sprite(x,y,'sprite');
+ //Game.playerMap[id] = game.add.sprite(x,y,"sprite");
 };
 
 Game.movePlayer = function(id,x,y){
