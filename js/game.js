@@ -5,22 +5,23 @@ Game.init = function(){
 };
 
 Game.preload = function() {
-  game.load.script("Card.js", "js/Card.js");
+  game.load.script("FoodCard.js", "js/FoodCard.js");
+  game.load.script("GuestCard.js", "js/GuestCard.js");
   game.load.script("Deck.js", "js/Deck.js");
 
   game.load.image("board", "assets/wood.jpg");
   game.load.image("deck", "assets/cardback.png");
-  game.load.image("card", "assets/card.png");
+  game.load.image("foodCard", "assets/food.png");
+  game.load.image("guestCard", "assets/guest.png");
 };
 
 Game.create = function(){
   // Globals
   Game.playerMap = {};
+  Game.coord = {x: 100, y: 100};
   
   // Board Setup
   var board = game.add.image(0, 0, "board");
-  //board.inputEnabled = true; 
-  //board.events.onInputUp.add(Game.getCoordinates, this);
 
   var deck = new Deck(game, 50, 570);
   game.add.existing(deck);
@@ -32,9 +33,11 @@ Game.create = function(){
   Client.askNewPlayer();
 };
 
-Game.spawnCard = function() {
-  var card = new Card(game, Math.random() * 1024, Math.random() * 768);
-  game.add.existing(card);
+Game.spawnFoodCard = function() {
+  var foodCard = new FoodCard(game, Game.coord.x, Game.coord.y);
+  Game.coord.x += 100;
+  Game.coord.y += 100;
+  game.add.existing(foodCard);
 }
 
 Game.getCoordinates = function(layer,pointer) {

@@ -4,7 +4,7 @@ Deck = function(game, x, y) {
   var SCALE = .4
 
   this.inputEnabled = true;
-  this.events.onInputUp.add(clickDeck, this);
+  this.events.onInputUp.add(click, this);
 
   this.scale.setTo(SCALE);
   this.remaining = 10;
@@ -23,9 +23,9 @@ Deck.prototype.update = function() {
   this.textBox.setText(this.remaining + " remaining");
 };
 
-function clickDeck(target) {
+function click(target) {
   if (this.remaining > 0) {
     this.remaining--;
-    Game.spawnCard(); 
+    Game.spawnFoodCard(); 
   }
 };
