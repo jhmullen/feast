@@ -27,12 +27,18 @@ Game.create = function(){
   var deck = new Deck(game, 50, 570);
   game.add.existing(deck);
 
+  game.input.addMoveCallback(Game.p, this);
+
   // Network Diagnostics
   var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
   testKey.onDown.add(Client.sendTest, this);
 
   Client.askNewPlayer();
 };
+
+Game.p = function(pointer) {
+
+}
 
 Game.spawnFoodCard = function() {
   var foodCard = new FoodCard(game, Game.coord.x, Game.coord.y);

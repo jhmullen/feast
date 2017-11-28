@@ -8,9 +8,10 @@ FoodCard = function(game, x, y) {
   this.appetite = Math.floor(Math.random() * 7);*/
 
   this.inputEnabled = true;
+  this.input.enableDrag(true);
+  this.events.onDragStart.add(FoodCard.onDragStart, this);
+  this.events.onDragStop.add(FoodCard.onDragStop, this);
   this.events.onInputUp.add(FoodCard.click, this);
-
-  this.remaining = 10;
   
   this.foodText = game.make.text(6, 3, this.food, {fontSize: "12px"});
   this.addChild(this.foodText);
@@ -33,7 +34,20 @@ FoodCard.prototype = Object.create(Phaser.Sprite.prototype);
 FoodCard.prototype.constructor = FoodCard;
 
 FoodCard.prototype.update = function() {
-  
+  if (this.input.pointerOver()) {
+
+  }
+  else {
+
+  }
+}
+
+FoodCard.onDragStart = function(sprite, pointer) {
+  console.log("start", sprite, pointer.x, pointer.y);
+}
+
+FoodCard.onDragStop = function(sprite, pointer) {
+  console.log("drop", sprite, pointer.x, pointer.y);
 }
 
 FoodCard.click = function (target) {

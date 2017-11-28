@@ -4,7 +4,7 @@ Deck = function(game, x, y) {
   this.inputEnabled = true;
   this.events.onInputUp.add(Deck.click, this);
 
-  this.remaining = 10;
+  this.remaining = 4;
   
   var style = {
     fontSize: "18px"
