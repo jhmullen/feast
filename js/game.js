@@ -2,6 +2,7 @@ var Game = {};
 
 Game.init = function(){
   game.stage.disableVisibilityChange = true;
+  game.stage.smoothed = true;
 };
 
 Game.preload = function() {
@@ -18,7 +19,7 @@ Game.preload = function() {
 Game.create = function(){
   // Globals
   Game.playerMap = {};
-  Game.coord = {x: 100, y: 100};
+  Game.coord = {x: 175, y: 525};
   
   // Board Setup
   var board = game.add.image(0, 0, "board");
@@ -35,8 +36,7 @@ Game.create = function(){
 
 Game.spawnFoodCard = function() {
   var foodCard = new FoodCard(game, Game.coord.x, Game.coord.y);
-  Game.coord.x += 100;
-  Game.coord.y += 100;
+  Game.coord.x += 180;
   game.add.existing(foodCard);
 }
 

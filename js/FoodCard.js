@@ -1,7 +1,7 @@
 FoodCard = function(game, x, y) {
   Phaser.Sprite.call(this, game, x, y, "foodCard");
 
-  var SCALE = .2;
+  var SCALE = .1;
 
   this.name = "Turkey Leg";
   this.food = Math.floor(Math.random() * 12);
@@ -10,13 +10,13 @@ FoodCard = function(game, x, y) {
   this.appetite = Math.floor(Math.random() * 7);*/
 
   this.inputEnabled = true;
-  this.events.onInputUp.add(click, this);
+  this.events.onInputUp.add(FoodCard.click, this);
 
   this.scale.setTo(SCALE);
   this.remaining = 10;
   
   this.foodText = game.make.text(45, 20, this.food);
-  this.foodText.scale.setTo(1/SCALE);
+  this.foodText.scale.setTo(5);
   this.addChild(this.foodText);
 
   this.nameText = game.make.text(140, 780, this.name);
@@ -40,6 +40,8 @@ FoodCard.prototype.update = function() {
   
 }
 
-function click(target) {
-  console.log(target);
+FoodCard.click = function (target) {
+
 }
+
+
